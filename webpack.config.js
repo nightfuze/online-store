@@ -6,6 +6,12 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
+  resolve: {
+    alias: {
+      components: path.resolve(__dirname, "src"),
+    },
+    extensions: [".js", ".jsx"],
+  },
   module: {
     rules: [
       {

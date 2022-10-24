@@ -1,0 +1,29 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  position: relative;
+  box-shadow: 0 2px 7px #dfdfdf;
+  margin: 50px auto;
+  background: #fafafa;
+  padding: 5px;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 5px;
+  }
+
+  &-container {
+    padding: 15px;
+  }
+
+  &-title {
+    font-size: 20px;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
