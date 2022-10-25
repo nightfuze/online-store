@@ -1,0 +1,21 @@
+.cart-item {
+  &:hover {
+    background-color: #f2f2f2;
+  }
+
+  &-image {
+    max-height: 100px;
+    &-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &-quantity {
+    display: flex;
+    justify-content: space-evenly;
+
+    .arrow {
+      cursor: pointer;
+    }
+  }
+}
