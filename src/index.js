@@ -6,13 +6,16 @@ import App from "./App";
 
 import "normalize.css";
 import { ProductsProvider } from "./contexts/products-context";
+import { CartProvider } from "./contexts/cart-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
     <ProductsProvider>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </ProductsProvider>
   </BrowserRouter>
 );
