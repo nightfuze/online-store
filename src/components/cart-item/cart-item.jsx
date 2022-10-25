@@ -1,9 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import { CartContext } from "../../contexts/cart-context";
 
 import "./cart-item.scss";
 
 const CartItem = ({ cartItem }) => {
   const { title, price, image, quantity } = cartItem;
+  const { addItemToCart, removeItemFromCart, clearItemFromCart } =
+    useContext(CartContext);
+
+  const addItemHandler = () => addItemToCart(cartItem);
+  const removeItemHandler = () => removeItemFromCart(cartItem);
+  const clearItemHandler = () => clearItemFromCart(cartItem);
 
   return (
     <Fragment>
@@ -15,13 +22,21 @@ const CartItem = ({ cartItem }) => {
         <td className="cart-item-price">${price}</td>
         <td className="cart-item-quantity-container">
           <div className="cart-item-quantity">
-            <div className="arrow">&#10094;</div>
+            <div className="arrow" onClick={removeItemHandler}>
+              &#10094;
+            </div>
             {quantity}
-            <div className="arrow">&#10095;</div>
+            <div className="arrow" onClick={addItemHandler}>
+              &#10095;
+            </div>
           </div>
         </td>
-        <td className="cart-item-total">total value</td>
-        <td>Remove</td>
+        <td className="cart-item-total">${(price * quantity).toFixed(2)}</td>
+        <td>
+          <div className="cart-item-remove" onClick={clearItemHandler}>
+            Remove
+          </div>
+        </td>
       </tr>
     </Fragment>
   );
