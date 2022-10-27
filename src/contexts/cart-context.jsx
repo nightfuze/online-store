@@ -45,10 +45,13 @@ export const CartContext = createContext({
   removeItemFromCart: () => {},
   clearItemFromCart: () => {},
   resetCartItems: () => {},
+  isItemInCart: () => {},
 });
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(
+    JSON.parse(localStorage.getItem("cartItems")) || []
+  );
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
 
@@ -66,6 +69,9 @@ export const CartProvider = ({ children }) => {
 
   const resetCartItems = () => setCartItems([]);
 
+  const isItemInCart = (cartItem) =>
+    [...cartItems.map((item) => item.title)].includes(cartItem.title);
+
   useEffect(() => {
     const totalCartItem = cartItems.reduce(
       (total, cartItems) => total + cartItems.quantity * cartItems.price,
@@ -80,6 +86,9 @@ export const CartProvider = ({ children }) => {
     );
     setCartCount(countCartItem);
   }, [cartItems]);
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   console.log({ cartItems, cartTotal, cartCount });
 
@@ -91,6 +100,7 @@ export const CartProvider = ({ children }) => {
     clearItemFromCart,
     cartCount,
     resetCartItems,
+    isItemInCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

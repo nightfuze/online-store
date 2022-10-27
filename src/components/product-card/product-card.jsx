@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { CartContext } from "../../contexts/cart-context";
 import Button from "../button/button";
 
@@ -6,11 +6,15 @@ import "./product-card.scss";
 
 const ProductCard = ({ product }) => {
   const { title, price, image } = product;
-  const { addItemToCart, removeItemFromCart } = useContext(CartContext);
+  const { addItemToCart, removeItemFromCart, isItemInCart } =
+    useContext(CartContext);
 
-  const [buttonText, setButtonText] = useState("Add to cart");
+  const [buttonText, setButtonText] = useState(
+    isItemInCart(product) ? "Remove" : "Add to cart"
+  );
 
   const onClickHandler = () => {
+    console.log(isItemInCart(product));
     if (buttonText === "Add to cart") {
       addItemToCart(product);
       setButtonText("Remove");
