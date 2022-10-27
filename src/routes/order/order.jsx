@@ -12,10 +12,10 @@ import "./order.scss";
 
 const Order = () => {
   const { step, resetStep } = useContext(OrderContext);
-  const { cartTotal, clearItemFromCart } = useContext(CartContext);
+  const { cartTotal, resetCartItems } = useContext(CartContext);
 
   const onClickHandler = () => {
-    clearItemFromCart();
+    resetCartItems();
     resetStep();
   };
 

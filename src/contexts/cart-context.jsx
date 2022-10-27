@@ -44,6 +44,7 @@ export const CartContext = createContext({
   addItemToCart: () => {},
   removeItemFromCart: () => {},
   clearItemFromCart: () => {},
+  resetCartItems: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -62,6 +63,8 @@ export const CartProvider = ({ children }) => {
   const clearItemFromCart = (productToClear) => {
     setCartItems(clearCartItem(cartItems, productToClear));
   };
+
+  const resetCartItems = () => setCartItems([]);
 
   useEffect(() => {
     const totalCartItem = cartItems.reduce(
@@ -87,6 +90,7 @@ export const CartProvider = ({ children }) => {
     removeItemFromCart,
     clearItemFromCart,
     cartCount,
+    resetCartItems,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
