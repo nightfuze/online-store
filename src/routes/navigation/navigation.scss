@@ -11,14 +11,41 @@
     padding: 25px;
   }
 
-  .nav-links-container {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  .nav {
+    &-cart {
+      &-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 40px;
+        height: 40px;
+      }
+      &-counter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        font-size: 10px;
+        top: 6px;
+        right: 6px;
+        background: #db242d;
+        border-radius: 100%;
+        color: #fff;
+      }
+    }
 
-    .nav-link {
+    &-links-container {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    &-link {
       padding: 10px 15px;
       cursor: pointer;
     }
