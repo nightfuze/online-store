@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 
-import { ReactComponent as ShoppingCart } from "../../assets/shopping-cart.svg";
+import ShoppingCart from "../../assets/shopping-cart.svg";
 import { CartContext } from "../../contexts/cart-context";
 
 import "./navigation.scss";
