@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { ProductsContext } from "../../contexts/products-context";
 import Button from "../button/button";
 import CategoryFilter from "../category-filter/category-filter";
+import PriceFilter from "../price-filter/price-filter";
 import RatingFilter from "../rating-filter/rating-filter";
 
 import "./filters.scss";
@@ -18,9 +19,10 @@ const rating = ["5", "4", "3", "2", "1"];
 const Filters = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
+  const [selectedPrice, setSelectedPrice] = useState({});
   const { applyFilters, resetFilters } = useContext(ProductsContext);
-
-  console.log({ selectedCategories, selectedRating });
+  const { priceRange } = useContext(ProductsContext);
+  console.log({ selectedCategories, selectedRating, selectedPrice });
 
   const onChangeCategoryHandler = (e) => {
     if (e.target.checked) {
@@ -36,9 +38,18 @@ const Filters = () => {
     setSelectedRating(e.target.id);
   };
 
-  const onApplyHandler = () => {
-    applyFilters(selectedCategories, selectedRating);
+  const onChangePriceHandler = (e) => {
+    console.log(e.target.value, e.target.id);
+    if (e.target.id === "minPrice" && e.target.value) {
+      setSelectedPrice({ ...selectedPrice, minPrice: e.target.value });
+    }
+    if (e.target.id === "maxPrice") {
+      setSelectedPrice({ ...selectedPrice, maxPrice: e.target.value });
+    }
   };
+
+  const onApplyHandler = () =>
+    applyFilters(selectedCategories, selectedRating, selectedPrice);
 
   const onResetHandler = () => resetFilters();
 
@@ -53,6 +64,7 @@ const Filters = () => {
         rating={rating}
         selectedRating={selectedRating}
       />
+      <PriceFilter onChange={onChangePriceHandler} />
       <Button onClick={onApplyHandler}>apply</Button>
       <Button onClick={onResetHandler}>reset</Button>
     </aside>

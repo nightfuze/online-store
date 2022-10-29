@@ -8,20 +8,36 @@ const filterProducts = (products, itemsToFilter, prop) => {
       itemsToFilter.includes(product.category)
     );
   }
-  if (prop === "rating") {
+  if (prop === "rate") {
+    if (!itemsToFilter.length) return products;
     return products.filter((product) => product.rating.rate >= itemsToFilter);
   }
+  if (prop === "price") {
+    if (!Object.keys(itemsToFilter).length) return products;
+    const { minPrice, maxPrice } = itemsToFilter;
+    return products.filter(
+      (product) => product.price <= maxPrice && product.price >= minPrice
+    );
+  }
+};
+
+const getPriceProducts = (products) => {
+  return products.map((product) => product.price);
 };
 
 export const ProductsContext = createContext({
   products: [],
+  minPrice: 0,
+  maxPrice: 0,
   filteredProducts: [],
+  priceRange: {},
   applyFilters: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [priceRange, setPriceRange] = useState({});
 
   console.log({ filteredProducts });
 
@@ -35,20 +51,30 @@ export const ProductsProvider = ({ children }) => {
     getData();
   }, []);
 
-  const applyFilters = (categories, rating) => {
+  useEffect(() => {
+    setPriceRange({
+      minPrice: Math.min(...getPriceProducts(products)),
+      maxPrice: Math.max(...getPriceProducts(products)),
+    });
+  }, [products]);
+
+  const applyFilters = (categories, rating, selectedPrice) => {
     setFilteredProducts(
       filterProducts(
-        filterProducts(products, categories, "category"),
+        filterProducts(
+          filterProducts(products, selectedPrice, "price"),
+          categories,
+          "category"
+        ),
         rating,
-        "rating"
+        "rate"
       )
     );
-    // setFilteredProducts(filterProducts(filteredProducts, rating, "rating"));
   };
 
   const resetFilters = () => setFilteredProducts(products);
 
-  const value = { filteredProducts, applyFilters, resetFilters };
+  const value = { filteredProducts, applyFilters, resetFilters, priceRange };
 
   return (
     <ProductsContext.Provider value={value}>
