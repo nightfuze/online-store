@@ -5,10 +5,10 @@ import ProductCard from "../product-card/product-card";
 import "./products.scss";
 
 const Products = () => {
-  const { products } = useContext(ProductsContext);
+  const { filteredProducts } = useContext(ProductsContext);
   return (
     <div className="products">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
