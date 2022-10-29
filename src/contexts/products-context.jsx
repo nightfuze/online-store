@@ -1,14 +1,22 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
 
-const filterProducts = (products, itemsToFilter) => {
-  return products.filter((product) => itemsToFilter.includes(product.category));
+const filterProducts = (products, itemsToFilter, prop) => {
+  if (prop === "category") {
+    if (!itemsToFilter.length) return products;
+    return products.filter((product) =>
+      itemsToFilter.includes(product.category)
+    );
+  }
+  if (prop === "rating") {
+    return products.filter((product) => product.rating.rate >= itemsToFilter);
+  }
 };
 
 export const ProductsContext = createContext({
   products: [],
   filteredProducts: [],
-  categoriesFilter: () => {},
+  applyFilters: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
@@ -27,13 +35,20 @@ export const ProductsProvider = ({ children }) => {
     getData();
   }, []);
 
-  const categoriesFilter = (categories) => {
-    categories.length
-      ? setFilteredProducts(filterProducts(products, categories))
-      : setFilteredProducts(products);
+  const applyFilters = (categories, rating) => {
+    setFilteredProducts(
+      filterProducts(
+        filterProducts(products, categories, "category"),
+        rating,
+        "rating"
+      )
+    );
+    // setFilteredProducts(filterProducts(filteredProducts, rating, "rating"));
   };
 
-  const value = { filteredProducts, categoriesFilter };
+  const resetFilters = () => setFilteredProducts(products);
+
+  const value = { filteredProducts, applyFilters, resetFilters };
 
   return (
     <ProductsContext.Provider value={value}>
