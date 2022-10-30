@@ -21,8 +21,6 @@ const Filters = () => {
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedPrice, setSelectedPrice] = useState({});
   const { applyFilters, resetFilters } = useContext(ProductsContext);
-  const { priceRange } = useContext(ProductsContext);
-  console.log({ selectedCategories, selectedRating, selectedPrice });
 
   const onChangeCategoryHandler = (e) => {
     if (e.target.checked) {

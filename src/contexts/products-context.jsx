@@ -25,6 +25,25 @@ const getPriceProducts = (products) => {
   return products.map((product) => product.price);
 };
 
+const sortProducts = (value, products) => {
+  console.log({ value });
+  return [
+    ...products.sort((a, b) => {
+      const { id, price } = a;
+      const { price: priceB, id: idB } = b;
+
+      switch (value) {
+        case "priceDesc":
+          return priceB - price;
+        case "priceAsc":
+          return price - priceB;
+        default:
+          return id - idB;
+      }
+    }),
+  ];
+};
+
 export const ProductsContext = createContext({
   products: [],
   minPrice: 0,
@@ -72,9 +91,18 @@ export const ProductsProvider = ({ children }) => {
     );
   };
 
+  const sortProductsByValue = (value) =>
+    setFilteredProducts([...sortProducts(value, filteredProducts)]);
+
   const resetFilters = () => setFilteredProducts(products);
 
-  const value = { filteredProducts, applyFilters, resetFilters, priceRange };
+  const value = {
+    filteredProducts,
+    applyFilters,
+    resetFilters,
+    priceRange,
+    sortProductsByValue,
+  };
 
   return (
     <ProductsContext.Provider value={value}>
