@@ -1,23 +1,32 @@
 import React, { useContext, useRef } from "react";
 import { OrderContext } from "../../contexts/order-context";
+import useInput from "../../hooks/useInput";
 
 import Button from "../button/button";
 
 import "./contact-information.scss";
 
 const ContactInformation = () => {
-  const { nextStep, updateFormData, formData } = useContext(OrderContext);
+  const { nextStep } = useContext(OrderContext);
+  const email = useInput("", { isEmpty: true, isEmail: true });
+  const phone = useInput("", { isEmpty: true, isPhone: true });
 
   const onClickHandler = () => {
-    updateFormData({
-      ...{ [phoneRef.current.id]: phoneRef.current.value },
-      ...{ [emailRef.current.id]: emailRef.current.value },
-    });
     nextStep();
   };
 
-  const emailRef = useRef();
-  const phoneRef = useRef();
+  const onEmailChangeHandler = (e) => {
+    email.onChange(e);
+  };
+  const onEmailBlurHandler = () => {
+    email.onBlur();
+  };
+  const onPhoneChangeHandler = (e) => {
+    phone.onChange(e);
+  };
+  const onPhoneBlurHandler = (e) => {
+    phone.onBlur();
+  };
 
   return (
     <div>
@@ -29,26 +38,34 @@ const ContactInformation = () => {
             <input
               type="email"
               id="email"
-              required
-              placeholder="example@email.com"
-              defaultValue={formData.email}
-              ref={emailRef}
+              placeholder="email@example.com"
+              onChange={onEmailChangeHandler}
+              onBlur={onEmailBlurHandler}
             />
+            {email.isDirty && email.isEmpty && (
+              <div>The field cannot be empty</div>
+            )}
+            {email.isDirty && email.emailError && <div>Invalid email</div>}
           </div>
           <div>
             <label htmlFor="phone">Phone Number</label>
             <input
               type="tel"
               id="phone"
-              placeholder="example: 89995553311"
-              pattern="[0-9]{11}"
-              title="required 10 numbers (example: 89995553311)"
-              required
-              defaultValue={formData.phone}
-              ref={phoneRef}
+              placeholder="89995553311"
+              onChange={onPhoneChangeHandler}
+              onBlur={onPhoneBlurHandler}
             />
+            {phone.isDirty && phone.isEmpty && (
+              <div>The field cannot be empty</div>
+            )}
+            {phone.isDirty && phone.phoneError && <div>Invalid phone</div>}
           </div>
-          <Button buttonType="inverted" onClick={onClickHandler}>
+          <Button
+            disabled={!email.isInputValid || !phone.isInputValid}
+            buttonType="inverted"
+            onClick={onClickHandler}
+          >
             Continue to Payment information
           </Button>
         </form>

@@ -1,25 +1,44 @@
 import React, { useContext, useRef } from "react";
 import { OrderContext } from "../../contexts/order-context";
+import useInput from "../../hooks/useInput";
 import Button from "../button/button";
 
 import "./shipping-information.scss";
 
 const ShippingInformation = () => {
-  const { updateFormData, nextStep, formData } = useContext(OrderContext);
+  const { nextStep } = useContext(OrderContext);
 
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
-  const addressRef = useRef();
-  const zipCodeRef = useRef();
+  const firstName = useInput("", { isEmpty: true });
+  const lastName = useInput("", { isEmpty: true });
+  const address = useInput("", { isEmpty: true });
+  const zipCode = useInput("", { isEmpty: true });
+
+  const onChangeFirstNameHandler = (e) => {
+    firstName.onChange(e);
+  };
+  const onBlurFirstNameHandler = () => {
+    firstName.onBlur();
+  };
+  const onChangeLastNameHandler = (e) => {
+    lastName.onChange(e);
+  };
+  const onBlurLastNameHandler = () => {
+    lastName.onBlur();
+  };
+  const onChangeAddressHandler = (e) => {
+    address.onChange(e);
+  };
+  const onBlurAddressHandler = () => {
+    address.onBlur();
+  };
+  const onChangeZipCodeHandler = (e) => {
+    zipCode.onChange(e);
+  };
+  const onBlurZipCodeHandler = () => {
+    zipCode.onBlur();
+  };
 
   const onClickHandler = () => {
-    const data = {
-      ...{ [firstNameRef.current.id]: firstNameRef.current.value },
-      ...{ [lastNameRef.current.id]: lastNameRef.current.value },
-      ...{ [addressRef.current.id]: addressRef.current.value },
-      ...{ [zipCodeRef.current.id]: zipCodeRef.current.value },
-    };
-    updateFormData(data);
     nextStep();
   };
 
@@ -32,39 +51,65 @@ const ShippingInformation = () => {
           <input
             type="text"
             id="firstName"
-            defaultValue={formData.firstName}
-            ref={firstNameRef}
+            placeholder="John"
+            onChange={onChangeFirstNameHandler}
+            onBlur={onBlurFirstNameHandler}
           />
+          {firstName.isDirty && firstName.isEmpty && (
+            <div>The field cannot be empty</div>
+          )}
         </div>
         <div className="order-form-item">
           <label htmlFor="lastName">Last Name</label>
           <input
             type="text"
             id="lastName"
-            defaultValue={formData.lastName}
-            ref={lastNameRef}
+            placeholder="Doe"
+            onChange={onChangeLastNameHandler}
+            onBlur={onBlurLastNameHandler}
           />
+          {lastName.isDirty && lastName.isEmpty && (
+            <div>The field cannot be empty</div>
+          )}
         </div>
         <div className="order-form-item">
           <label htmlFor="address">Address</label>
           <input
             type="text"
             id="address"
-            defaultValue={formData.address}
-            ref={addressRef}
+            placeholder="Nulla St.
+            Mankato Mississippi "
+            onChange={onChangeAddressHandler}
+            onBlur={onBlurAddressHandler}
           />
+          {address.isDirty && address.isEmpty && (
+            <div>The field cannot be empty</div>
+          )}
         </div>
         <div className="order-form-item">
           <label htmlFor="zipCode">ZIP Code</label>
           <input
             type="text"
             id="zipCode"
-            defaultValue={formData.zipCode}
-            ref={zipCodeRef}
+            placeholder="96522"
+            onChange={onChangeZipCodeHandler}
+            onBlur={onBlurZipCodeHandler}
           />
+          {zipCode.isDirty && zipCode.isEmpty && (
+            <div>The field cannot be empty</div>
+          )}
         </div>
       </div>
-      <Button buttonType="inverted" onClick={onClickHandler}>
+      <Button
+        disabled={
+          !firstName.isInputValid ||
+          !lastName.isInputValid ||
+          !address.isInputValid ||
+          zipCode.isInputValid
+        }
+        buttonType="inverted"
+        onClick={onClickHandler}
+      >
         confirm information
       </Button>
     </div>
