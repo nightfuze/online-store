@@ -3,13 +3,20 @@ import { OrderContext } from "../../contexts/order-context";
 import useInput from "../../hooks/useInput";
 
 import Button from "../button/button";
-
-import "./contact-information.scss";
+import InputForm from "../input-form/input-form";
 
 const ContactInformation = () => {
   const { nextStep } = useContext(OrderContext);
   const email = useInput("", { isEmpty: true, isEmail: true });
   const phone = useInput("", { isEmpty: true, isPhone: true });
+
+  const isEmailEmpty = email.isDirty && email.isEmpty;
+  const isEmailValid = email.isDirty && email.emailError;
+
+  console.log(isEmailEmpty);
+
+  const isPhoneEmpty = phone.isDirty && phone.isEmpty;
+  const isPhoneValid = phone.isDirty && phone.phoneError;
 
   const onClickHandler = () => {
     nextStep();
@@ -29,37 +36,33 @@ const ContactInformation = () => {
   };
 
   return (
-    <div>
-      <h1>Contact information</h1>
-      <div>
-        <form className="contact-form">
-          <div>
-            <label htmlFor="email">Email Address</label>
-            <input
-              type="email"
+    <div className="order-form">
+      <div className="order-form-container">
+        <h1 className="order-form-header">Contact information</h1>
+        <div className="order-form-list">
+          <div className="order-form-item">
+            <InputForm
+              label="Email Address"
               id="email"
+              type="email"
               placeholder="email@example.com"
               onChange={onEmailChangeHandler}
               onBlur={onEmailBlurHandler}
+              isEmpty={isEmailEmpty}
+              isValid={isEmailValid}
             />
-            {email.isDirty && email.isEmpty && (
-              <div>The field cannot be empty</div>
-            )}
-            {email.isDirty && email.emailError && <div>Invalid email</div>}
           </div>
-          <div>
-            <label htmlFor="phone">Phone Number</label>
-            <input
+          <div className="order-form-item">
+            <InputForm
+              label="Phone Number"
               type="tel"
               id="phone"
               placeholder="89995553311"
               onChange={onPhoneChangeHandler}
               onBlur={onPhoneBlurHandler}
+              isEmpty={isPhoneEmpty}
+              isValid={isPhoneValid}
             />
-            {phone.isDirty && phone.isEmpty && (
-              <div>The field cannot be empty</div>
-            )}
-            {phone.isDirty && phone.phoneError && <div>Invalid phone</div>}
           </div>
           <Button
             disabled={!email.isInputValid || !phone.isInputValid}
@@ -68,7 +71,7 @@ const ContactInformation = () => {
           >
             Continue to Payment information
           </Button>
-        </form>
+        </div>
       </div>
     </div>
   );

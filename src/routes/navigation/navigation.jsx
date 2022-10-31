@@ -1,8 +1,10 @@
 import React, { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 
-import ShoppingCart from "../../assets/shopping-cart.svg";
 import { CartContext } from "../../contexts/cart-context";
+
+import Logo from "../../assets/shopify-logo.svg";
+import ShoppingCart from "../../assets/shopping-cart.svg";
 
 import "./navigation.scss";
 
@@ -10,24 +12,26 @@ const Navigation = () => {
   const { cartCount } = useContext(CartContext);
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
-          Logo
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/cart">
-            <div className="nav-cart-container">
-              {cartCount > 0 && (
-                <div className="nav-cart-counter">{cartCount}</div>
-              )}
-              <ShoppingCart className="nav-cart" />
-            </div>
+      <header className="header">
+        <div className="header-container container">
+          <Link className="header-link" to="/">
+            <Logo className="header-logo" alt="OnlineStore logo" />
           </Link>
-          <Link className="nav-link" to="/order">
-            Order
-          </Link>
+          <nav className="nav">
+            <Link className="nav-link" to="/cart">
+              <div className="nav-cart-container">
+                {cartCount > 0 && (
+                  <div className="nav-cart-counter">{cartCount}</div>
+                )}
+                <ShoppingCart className="nav-cart" />
+              </div>
+            </Link>
+            <Link className="nav-link" to="/order">
+              Order
+            </Link>
+          </nav>
         </div>
-      </div>
+      </header>
       <Outlet />
     </Fragment>
   );

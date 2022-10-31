@@ -35,12 +35,12 @@ const ProductCard = ({ product }) => {
         </h2>
         <div className="product-card-footer">
           <span className="product-card-price">${price}</span>
-          <Button
-            buttonType="inverted"
-            children={buttonText}
-            onClick={onClickHandler}
-          />
         </div>
+        <Button
+          buttonType="inverted"
+          children={buttonText}
+          onClick={onClickHandler}
+        />
       </div>
     </div>
   );

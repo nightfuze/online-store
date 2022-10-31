@@ -1,17 +1,24 @@
-.navigation {
-  height: 70px;
+@import "../../styles/variables.scss";
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
+  height: 70px;
+  background-color: $light;
 
-  .logo-container {
-    height: 100%;
-    width: 70px;
-    padding: 25px;
+  &-container {
+    display: flex;
+    justify-content: space-between;
   }
-
+  &-logo {
+    max-height: 50px;
+    max-width: 150px;
+  }
   .nav {
+    display: flex;
+    align-items: center;
     &-cart {
       &-container {
         display: flex;
@@ -37,7 +44,7 @@
       }
     }
 
-    &-links-container {
+    &-links {
       width: 50%;
       height: 100%;
       display: flex;

@@ -1,11 +1,12 @@
 import React from "react";
 
-const RatingFilter = ({ rating, onChange, selectedRating }) => {
+const RatingFilter = (props) => {
+  const { className, rating, onChange, selectedRating } = props;
   return (
-    <div>
+    <div className={`${className}-container`}>
       <span>Rating</span>
       {rating.map((rate) => (
-        <div key={rate}>
+        <div key={rate} className={`${className}-option`}>
           <label htmlFor={rate}>
             <input
               type="radio"

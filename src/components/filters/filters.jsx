@@ -54,15 +54,17 @@ const Filters = () => {
   return (
     <aside className="filters">
       <CategoryFilter
+        className="filters"
         onChange={onChangeCategoryHandler}
         categories={categories}
       />
       <RatingFilter
+        className="filters"
         onChange={onChangeRatingHandler}
         rating={rating}
         selectedRating={selectedRating}
       />
-      <PriceFilter onChange={onChangePriceHandler} />
+      <PriceFilter className="filters" onChange={onChangePriceHandler} />
       <Button onClick={onApplyHandler}>apply</Button>
       <Button onClick={onResetHandler}>reset</Button>
     </aside>

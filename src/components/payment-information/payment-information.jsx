@@ -1,9 +1,8 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { OrderContext } from "../../contexts/order-context";
 import useInput from "../../hooks/useInput";
 import Button from "../button/button";
-
-import "./payment-information.scss";
+import InputForm from "../input-form/input-form";
 
 const PaymentInformation = () => {
   const { nextStep } = useContext(OrderContext);
@@ -11,6 +10,10 @@ const PaymentInformation = () => {
   const fullName = useInput("", { isEmpty: true });
   const cardNumber = useInput("", { isEmpty: true });
   const expiryDate = useInput("", { isEmpty: true });
+
+  const isFullNameEmpty = fullName.isDirty && fullName.isEmpty;
+  const isCardNumberEmpty = cardNumber.isDirty && cardNumber.isEmpty;
+  const isExpiryDateEmpty = expiryDate.isDirty && expiryDate.isEmpty;
 
   const onClickHandler = () => {
     nextStep();
@@ -36,58 +39,59 @@ const PaymentInformation = () => {
   };
 
   return (
-    <div>
-      <h1>Payment Information</h1>
-      <div>
-        <label htmlFor="fullName">Full name</label>
-        <input
-          type="text"
-          id="fullName"
-          placeholder="John Doe"
-          onChange={onFullNameChangeHandler}
-          onBlur={onFullNameBlurHandler}
-        />
-        {fullName.isDirty && fullName.isEmpty && (
-          <div>The field cannot be empty</div>
-        )}
+    <div className="order-form">
+      <div className="order-form-container">
+        <h1 className="order-form-header">Payment Information</h1>
+        <div className="order-form-list">
+          <div className="order-form-item">
+            <InputForm
+              label="Full name"
+              type="text"
+              id="fullName"
+              placeholder="John Doe"
+              onChange={onFullNameChangeHandler}
+              onBlur={onFullNameBlurHandler}
+              isEmpty={isFullNameEmpty}
+              isValid={false}
+            />
+          </div>
+          <div className="order-form-item">
+            <InputForm
+              label="Card number"
+              type="text"
+              id="cardNumber"
+              placeholder="0123-4567-8910"
+              onChange={onCardNumberChangeHandler}
+              onBlur={onCardNumberBlurHandler}
+              isEmpty={isCardNumberEmpty}
+              isValid={false}
+            />
+          </div>
+          <div className="order-form-item">
+            <InputForm
+              label="Expiry date"
+              type="text"
+              id="expiryDate"
+              placeholder="01/23"
+              onChange={onExpiryDateChangeHandler}
+              onBlur={onExpiryDateBlurHandler}
+              isEmpty={isExpiryDateEmpty}
+              isValid={false}
+            />
+          </div>
+          <Button
+            disabled={
+              !fullName.isInputValid ||
+              !cardNumber.isInputValid ||
+              !expiryDate.isInputValid
+            }
+            buttonType="inverted"
+            onClick={onClickHandler}
+          >
+            Continue to shipping information
+          </Button>
+        </div>
       </div>
-      <div>
-        <label htmlFor="cardNumber">Card number</label>
-        <input
-          type="text"
-          id="cardNumber"
-          placeholder="4444-3333-2222-1111"
-          onChange={onCardNumberChangeHandler}
-          onBlur={onCardNumberBlurHandler}
-        />
-        {cardNumber.isDirty && cardNumber.isEmpty && (
-          <div>The field cannot be empty</div>
-        )}
-      </div>
-      <div>
-        <label htmlFor="ExpiryDate">Expiry date</label>
-        <input
-          type="text"
-          id="expiryDate"
-          placeholder="01/23"
-          onChange={onExpiryDateChangeHandler}
-          onBlur={onExpiryDateBlurHandler}
-        />
-        {expiryDate.isDirty && expiryDate.isEmpty && (
-          <div>The field cannot be empty</div>
-        )}
-      </div>
-      <Button
-        disabled={
-          !fullName.isInputValid ||
-          !cardNumber.isInputValid ||
-          !expiryDate.isInputValid
-        }
-        buttonType="inverted"
-        onClick={onClickHandler}
-      >
-        Continue to shipping information
-      </Button>
     </div>
   );
 };

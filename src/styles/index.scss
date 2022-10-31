@@ -1,0 +1,17 @@
+@import "./variables.scss";
+@import url("normalize.css");
+
+.container {
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+body {
+  font-family: $Poppins;
+}
+
+input {
+  background: #f9f9f9;
+  border: 1px solid #d1d1d1;
+  border-radius: 12px;
+}
