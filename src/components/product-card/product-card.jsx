@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CartContext } from "../../contexts/cart-context";
 import Button from "../button/button";
+import Rating from "../rating/rating";
 
 import "./product-card.scss";
 
@@ -35,6 +36,7 @@ const ProductCard = ({ product }) => {
         </h2>
         <div className="product-card-footer">
           <span className="product-card-price">${price}</span>
+          <Rating rating={product.rating} />
         </div>
         <Button
           buttonType="inverted"
