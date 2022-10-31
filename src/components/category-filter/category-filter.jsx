@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ProductsContext } from "../../contexts/products-context";
 
 const CategoryFilter = (props) => {
   const { onChange, categories, className, isChecked } = props;
+
+  const { countProductsWithCategory } = useContext(ProductsContext);
 
   return (
     <div className={`${className}-container`}>
@@ -16,6 +19,7 @@ const CategoryFilter = (props) => {
             checked={isChecked[index]}
           />
           <label htmlFor={category}>{category}</label>
+          <span>{countProductsWithCategory(category)}</span>
         </div>
       ))}
     </div>

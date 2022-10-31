@@ -26,7 +26,6 @@ const Filters = () => {
   const [maxPriceValue, setMaxPriceValue] = useState("");
   const [selectedPrice, setSelectedPrice] = useState({});
   const { applyFilters, resetFilters } = useContext(ProductsContext);
-  const [isResetPrice, setIsResetPrice] = useState(false);
 
   const onChangeCategoryHandler = (e, position) => {
     const updatedCheckedState = checkedCategories.map((item, index) =>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { ProductsContext } from "../../contexts/products-context";
 import Rating from "../rating/rating";
 
 const RatingFilter = (props) => {
   const { className, rating, onChange, selectedRating } = props;
+  const { countProductsWithRate } = useContext(ProductsContext);
   return (
     <div className={`${className}-container`}>
       <span>Rating</span>
@@ -16,7 +18,7 @@ const RatingFilter = (props) => {
               onChange={onChange}
               checked={selectedRating === rate}
             />
-            <Rating rate={rate} count={0} />
+            <Rating rate={rate} count={countProductsWithRate(rate)} />
           </label>
         </div>
       ))}

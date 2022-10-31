@@ -51,6 +51,8 @@ export const ProductsContext = createContext({
   filteredProducts: [],
   priceRange: {},
   applyFilters: () => {},
+  countProductsWithRate: () => {},
+  countProductsWithCategory: () => {},
 });
 
 export const ProductsProvider = ({ children }) => {
@@ -94,6 +96,13 @@ export const ProductsProvider = ({ children }) => {
   const sortProductsByValue = (value) =>
     setFilteredProducts([...sortProducts(value, filteredProducts)]);
 
+  const countProductsWithCategory = (category) =>
+    filteredProducts.filter((item) => item.category === category).length;
+
+  const countProductsWithRate = (rate) => {
+    return filteredProducts.filter((item) => item.rating.rate >= rate).length;
+  };
+
   const resetFilters = () => setFilteredProducts(products);
 
   const value = {
@@ -102,6 +111,8 @@ export const ProductsProvider = ({ children }) => {
     resetFilters,
     priceRange,
     sortProductsByValue,
+    countProductsWithRate,
+    countProductsWithCategory,
   };
 
   return (
