@@ -8,6 +8,10 @@
   width: 100%;
   max-width: 200px;
   transition: left 0.3s ease-in;
+  &-rating {
+    display: flex;
+    gap: 8px;
+  }
   &-container {
     padding: 8px;
     border-bottom: 1px solid rgb(218, 218, 218);
@@ -17,18 +21,20 @@
     gap: 8px;
     margin-top: 8px;
   }
-  &-price-input {
-    min-height: 32px;
-    max-width: 70px;
-    text-align: center;
-  }
-  &-price-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  &-price-item {
-    display: flex;
-    flex-direction: column;
+  &-price {
+    &-input {
+      min-height: 32px;
+      max-width: 70px;
+      text-align: center;
+    }
+    &-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &-item {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }

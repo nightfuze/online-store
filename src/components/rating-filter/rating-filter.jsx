@@ -1,4 +1,5 @@
 import React from "react";
+import Rating from "../rating/rating";
 
 const RatingFilter = (props) => {
   const { className, rating, onChange, selectedRating } = props;
@@ -7,7 +8,7 @@ const RatingFilter = (props) => {
       <span>Rating</span>
       {rating.map((rate) => (
         <div key={rate} className={`${className}-option`}>
-          <label htmlFor={rate}>
+          <label className={`${className}-rating`} htmlFor={rate}>
             <input
               type="radio"
               name={rate}
@@ -15,7 +16,7 @@ const RatingFilter = (props) => {
               onChange={onChange}
               checked={selectedRating === rate}
             />
-            {rate} +
+            <Rating rate={rate} count={0} />
           </label>
         </div>
       ))}

@@ -36,7 +36,7 @@ const ProductCard = ({ product }) => {
         </h2>
         <div className="product-card-footer">
           <span className="product-card-price">${price}</span>
-          <Rating rating={product.rating} />
+          <Rating rate={product.rating.rate} count={product.rating.count} />
         </div>
         <Button
           buttonType="inverted"

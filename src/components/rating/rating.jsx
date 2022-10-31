@@ -6,7 +6,7 @@ import StarHalfIcon from "../../assets/star-half.svg";
 import StarZeroIcon from "../../assets/star-zero.svg";
 
 const Rating = (props) => {
-  const { rate, count } = props.rating;
+  const { rate, count } = props;
 
   const totalStars = 5;
   const roundRate = Math.floor(rate);
@@ -25,7 +25,7 @@ const Rating = (props) => {
         {[...Array(zeroStars).keys()].map((key) => (
           <StarZeroIcon key={key} />
         ))}
-        <p className="rating-count">{count}</p>
+        <span className="rating-count">{count}</span>
       </div>
     </div>
   );

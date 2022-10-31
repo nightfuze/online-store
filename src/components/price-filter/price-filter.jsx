@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { ProductsContext } from "../../contexts/products-context";
 
 const PriceFilter = (props) => {
-  const { onChange, className } = props;
+  const { onChange, className, minPriceValue, maxPriceValue } = props;
   const { priceRange } = useContext(ProductsContext);
   const { minPrice, maxPrice } = priceRange;
+
   return (
     <div className={`${className}-container`}>
       <span>Price</span>
@@ -17,6 +18,7 @@ const PriceFilter = (props) => {
             id="minPrice"
             placeholder={minPrice}
             onChange={onChange}
+            value={minPriceValue}
           />
         </div>
         <div className={`${className}-price-item`}>-</div>
@@ -28,6 +30,7 @@ const PriceFilter = (props) => {
             id="maxPrice"
             placeholder={maxPrice}
             onChange={onChange}
+            value={maxPriceValue}
           />
         </div>
       </div>
