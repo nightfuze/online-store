@@ -14,3 +14,12 @@
     transition: all 0.5s ease-out;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .toolbar {
+    display: block;
+    &-container {
+      justify-content: space-between;
+    }
+  }
+}
