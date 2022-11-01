@@ -26,9 +26,6 @@ const Navigation = () => {
                 <ShoppingCart className="nav-cart" />
               </div>
             </Link>
-            <Link className="nav-link" to="/order">
-              Order
-            </Link>
           </nav>
         </div>
       </header>
