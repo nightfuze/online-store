@@ -3,8 +3,7 @@ import { OrderContext } from "../../contexts/order-context";
 import ContactInformation from "../contact-information/contact-information";
 import PaymentInformation from "../payment-information/payment-information";
 import ShippingInformation from "../shipping-information/shipping-information";
-import Button from "../button/button";
-import { Link } from "react-router-dom";
+import NotifyMessage from "../notify-message/notify-message";
 
 const Steps = () => {
   const { step, resetStep } = useContext(OrderContext);
@@ -22,20 +21,10 @@ const Steps = () => {
       return <ShippingInformation />;
     case 4:
       return (
-        <div>
-          <h1>The order was successfully completed!</h1>
-          <Link to="/">
-            <Button onClick={onClickHandler}>Back to store</Button>
-          </Link>
-        </div>
+        <NotifyMessage notifyMessage="successOrder" onClick={onClickHandler} />
       );
     default:
-      return (
-        <div>
-          Error after order confirmation. Your information is invalid or try
-          again later
-        </div>
-      );
+      return <NotifyMessage notifyMessage="errorOrder" />;
   }
 };
 

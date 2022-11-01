@@ -1,10 +1,9 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 import CartTable from "../../components/cart-table/cart-table";
 import { CartContext } from "../../contexts/cart-context";
-import Button from "../../components/button/button";
 
 import "./cart.scss";
-import { Link } from "react-router-dom";
+import NotifyMessage from "../../components/notify-message/notify-message";
 
 const Cart = () => {
   const { cartItems } = useContext(CartContext);
@@ -13,12 +12,7 @@ const Cart = () => {
       {cartItems.length ? (
         <CartTable />
       ) : (
-        <div className="cart-container">
-          <h1>Your cart is Empty</h1>
-          <Link to="/">
-            <Button>Go back to store</Button>
-          </Link>
-        </div>
+        <NotifyMessage notifyMessage="emptyCart" />
       )}
     </div>
   );

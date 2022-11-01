@@ -1,11 +1,13 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { OrderContext } from "../../contexts/order-context";
+import { CartContext } from "../../contexts/cart-context";
 import useInput from "../../hooks/useInput";
 import Button from "../button/button";
 import InputForm from "../input-form/input-form";
 
 const ShippingInformation = () => {
   const { nextStep } = useContext(OrderContext);
+  const { resetCartItems } = useContext(CartContext);
 
   const firstName = useInput("", { isEmpty: true });
   const lastName = useInput("", { isEmpty: true });
@@ -43,6 +45,7 @@ const ShippingInformation = () => {
   };
 
   const onClickHandler = () => {
+    resetCartItems();
     nextStep();
   };
 
