@@ -5,34 +5,47 @@ import Button from "../button/button";
 import InputForm from "../input-form/input-form";
 
 const PaymentInformation = () => {
-  const { nextStep } = useContext(OrderContext);
+  const { nextStep, updateFormData } = useContext(OrderContext);
 
-  const fullName = useInput("", { isEmpty: true });
-  const cardNumber = useInput("", { isEmpty: true });
-  const expiryDate = useInput("", { isEmpty: true });
+  const fullName = useInput("", { isEmpty: true, isFullName: true });
+  const cardNumber = useInput("", { isEmpty: true, isCardNumber: true });
+  const expiryDate = useInput("", { isEmpty: true, isExpiryDate: true });
 
   const isFullNameEmpty = fullName.isDirty && fullName.isEmpty;
   const isCardNumberEmpty = cardNumber.isDirty && cardNumber.isEmpty;
   const isExpiryDateEmpty = expiryDate.isDirty && expiryDate.isEmpty;
+
+  const isFullNameValid = fullName.isDirty && fullName.fullNameError;
+  const isCardNumberValid = cardNumber.isDirty && cardNumber.cardNumberError;
+  const isExpiryDateValid = expiryDate.isDirty && expiryDate.expiryDateError;
 
   const onClickHandler = () => {
     nextStep();
   };
 
   const onFullNameChangeHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
     fullName.onChange(e);
+  };
+  const onCardNumberChangeHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
+    cardNumber.onChange(e);
+  };
+  const onExpiryDateChangeHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
+    expiryDate.onChange(e);
   };
   const onFullNameBlurHandler = () => {
     fullName.onBlur();
   };
-  const onCardNumberChangeHandler = (e) => {
-    cardNumber.onChange(e);
-  };
   const onCardNumberBlurHandler = () => {
     cardNumber.onBlur();
-  };
-  const onExpiryDateChangeHandler = (e) => {
-    expiryDate.onChange(e);
   };
   const onExpiryDateBlurHandler = () => {
     expiryDate.onBlur();
@@ -52,7 +65,7 @@ const PaymentInformation = () => {
               onChange={onFullNameChangeHandler}
               onBlur={onFullNameBlurHandler}
               isEmpty={isFullNameEmpty}
-              isValid={false}
+              isValid={isFullNameValid}
             />
           </div>
           <div className="order-form-item">
@@ -64,7 +77,7 @@ const PaymentInformation = () => {
               onChange={onCardNumberChangeHandler}
               onBlur={onCardNumberBlurHandler}
               isEmpty={isCardNumberEmpty}
-              isValid={false}
+              isValid={isCardNumberValid}
             />
           </div>
           <div className="order-form-item">
@@ -76,7 +89,7 @@ const PaymentInformation = () => {
               onChange={onExpiryDateChangeHandler}
               onBlur={onExpiryDateBlurHandler}
               isEmpty={isExpiryDateEmpty}
-              isValid={false}
+              isValid={isExpiryDateValid}
             />
           </div>
           <Button

@@ -5,9 +5,7 @@ export const OrderContext = createContext({
   step: 1,
   formData: {},
   updateFormData: () => {},
-  goToStep: () => {},
   resetStep: () => {},
-  isValidFormData: () => {},
 });
 
 export const OrderProvider = ({ children }) => {
@@ -24,22 +22,18 @@ export const OrderProvider = ({ children }) => {
     zipCode: "",
   });
 
+  console.log(formData);
+
   const nextStep = () => setStep(step + 1);
   const updateFormData = (newData) => setFormData({ ...formData, ...newData });
-  const goToStep = (n) => setStep(Number(n));
   const resetStep = () => setStep(1);
-  const isValidFormData = () =>
-    Object.values(formData).filter((elem) => elem.length).length ===
-    Object.keys(formData).length;
 
   const value = {
     step,
     nextStep,
     formData,
     updateFormData,
-    goToStep,
     resetStep,
-    isValidFormData,
   };
 
   return (

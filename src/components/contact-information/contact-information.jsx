@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { OrderContext } from "../../contexts/order-context";
 import useInput from "../../hooks/useInput";
 
@@ -6,14 +6,12 @@ import Button from "../button/button";
 import InputForm from "../input-form/input-form";
 
 const ContactInformation = () => {
-  const { nextStep } = useContext(OrderContext);
+  const { nextStep, updateFormData } = useContext(OrderContext);
   const email = useInput("", { isEmpty: true, isEmail: true });
   const phone = useInput("", { isEmpty: true, isPhone: true });
 
   const isEmailEmpty = email.isDirty && email.isEmpty;
   const isEmailValid = email.isDirty && email.emailError;
-
-  console.log(isEmailEmpty);
 
   const isPhoneEmpty = phone.isDirty && phone.isEmpty;
   const isPhoneValid = phone.isDirty && phone.phoneError;
@@ -23,15 +21,21 @@ const ContactInformation = () => {
   };
 
   const onEmailChangeHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
     email.onChange(e);
   };
   const onEmailBlurHandler = () => {
     email.onBlur();
   };
   const onPhoneChangeHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
     phone.onChange(e);
   };
-  const onPhoneBlurHandler = (e) => {
+  const onPhoneBlurHandler = () => {
     phone.onBlur();
   };
 

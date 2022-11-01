@@ -6,39 +6,56 @@ import Button from "../button/button";
 import InputForm from "../input-form/input-form";
 
 const ShippingInformation = () => {
-  const { nextStep } = useContext(OrderContext);
+  const { nextStep, updateFormData } = useContext(OrderContext);
   const { resetCartItems } = useContext(CartContext);
 
-  const firstName = useInput("", { isEmpty: true });
-  const lastName = useInput("", { isEmpty: true });
-  const address = useInput("", { isEmpty: true });
-  const zipCode = useInput("", { isEmpty: true });
+  const firstName = useInput("", { isEmpty: true, isFirstName: true });
+  const lastName = useInput("", { isEmpty: true, isLastName: true });
+  const address = useInput("", { isEmpty: true, isAddress: true });
+  const zipCode = useInput("", { isEmpty: true, isZipCode: true });
 
   const isFirstNameEmpty = firstName.isDirty && firstName.isEmpty;
   const isLastNameEmpty = lastName.isDirty && lastName.isEmpty;
   const isAddressEmpty = address.isDirty && address.isEmpty;
   const isZipCodeEmpty = zipCode.isDirty && zipCode.isEmpty;
 
+  const isFirstNameValid = firstName.isDirty && firstName.firstNameError;
+  const isLastNameValid = lastName.isDirty && lastName.lastNameError;
+  const isAddressValid = address.isDirty && address.addressError;
+  const isZipCodeValid = zipCode.isDirty && zipCode.zipCodeError;
+
   const onChangeFirstNameHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
     firstName.onChange(e);
+  };
+  const onChangeLastNameHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
+    lastName.onChange(e);
+  };
+  const onChangeAddressHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
+    address.onChange(e);
+  };
+  const onChangeZipCodeHandler = (e) => {
+    updateFormData({
+      [e.target.id]: e.target.value,
+    });
+    zipCode.onChange(e);
   };
   const onBlurFirstNameHandler = () => {
     firstName.onBlur();
   };
-  const onChangeLastNameHandler = (e) => {
-    lastName.onChange(e);
-  };
   const onBlurLastNameHandler = () => {
     lastName.onBlur();
   };
-  const onChangeAddressHandler = (e) => {
-    address.onChange(e);
-  };
   const onBlurAddressHandler = () => {
     address.onBlur();
-  };
-  const onChangeZipCodeHandler = (e) => {
-    zipCode.onChange(e);
   };
   const onBlurZipCodeHandler = () => {
     zipCode.onBlur();
@@ -59,11 +76,11 @@ const ShippingInformation = () => {
               label="First Name"
               id="firstName"
               type="text"
-              placeholder="John Doe"
+              placeholder="John"
               onChange={onChangeFirstNameHandler}
               onBlur={onBlurFirstNameHandler}
               isEmpty={isFirstNameEmpty}
-              isValid={false}
+              isValid={isFirstNameValid}
             />
           </div>
           <div className="order-form-item">
@@ -71,11 +88,11 @@ const ShippingInformation = () => {
               label="Last Name"
               id="lastName"
               type="text"
-              placeholder="John Doe"
+              placeholder="Doe"
               onChange={onChangeLastNameHandler}
               onBlur={onBlurLastNameHandler}
               isEmpty={isLastNameEmpty}
-              isValid={false}
+              isValid={isLastNameValid}
             />
           </div>
           <div className="order-form-item">
@@ -87,7 +104,7 @@ const ShippingInformation = () => {
               onChange={onChangeAddressHandler}
               onBlur={onBlurAddressHandler}
               isEmpty={isAddressEmpty}
-              isValid={false}
+              isValid={isAddressValid}
             />
           </div>
           <div className="order-form-item">
@@ -99,7 +116,7 @@ const ShippingInformation = () => {
               onChange={onChangeZipCodeHandler}
               onBlur={onBlurZipCodeHandler}
               isEmpty={isZipCodeEmpty}
-              isValid={false}
+              isValid={isZipCodeValid}
             />
           </div>
           <Button

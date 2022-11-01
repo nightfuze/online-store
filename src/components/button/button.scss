@@ -26,5 +26,20 @@
       background-color: #026e78;
       color: #fff;
     }
+    &:disabled,
+    &[disabled] {
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+      cursor: default;
+    }
+  }
+
+  &:disabled,
+  &[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
   }
 }
