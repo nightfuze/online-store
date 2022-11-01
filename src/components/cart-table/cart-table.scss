@@ -1,18 +1,21 @@
-.cart {
+.cart-table {
   width: 100%;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-collapse: collapse;
-
-  &-amount {
-    text-align: center !important;
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    &-container {
+      display: flex;
+      flex-direction: column;
+    }
   }
+}
 
-  th {
-    color: #fff;
-    background-color: #04aa6d;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
+@media screen and (max-width: 900px) {
+  .cart-table {
+    display: flex;
+    flex-direction: column;
+    &-header {
+      display: none;
+    }
   }
 }

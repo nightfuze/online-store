@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/cart-context";
-
+import Button from "../button/button";
 import CartItem from "../cart-item/cart-item";
 
 import "./cart-table.scss";
@@ -10,24 +11,31 @@ const CartTable = () => {
 
   return (
     <Fragment>
-      <table className="cart">
-        <thead>
-          <tr className="cart-container">
-            <th className="cart-image"></th>
-            <th className="cart-title">Title</th>
-            <th className="cart-price">Price</th>
-            <th className="cart-amount">Amount</th>
-            <th className="cart-total">Total</th>
-            <th className="cart-remove"></th>
+      <table className="cart-table">
+        <thead className="cart-table-header">
+          <tr className="cart-table-row">
+            <th className="cart-table-image"></th>
+            <th className="cart-table-title">Title</th>
+            <th className="cart-table-price">Price</th>
+            <th className="cart-table-amount">Amount</th>
+            <th className="cart-table-total">Total</th>
+            <th className="cart-table-remove"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="cart-table-body">
           {cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </tbody>
       </table>
-      <h1>Total: ${cartTotal}</h1>
+      <div className="cart-table-footer">
+        <div className="cart-table-footer-container">
+          <h1>Total: ${cartTotal}</h1>
+          <Link to="/order">
+            <Button>order</Button>
+          </Link>
+        </div>
+      </div>
     </Fragment>
   );
 };
