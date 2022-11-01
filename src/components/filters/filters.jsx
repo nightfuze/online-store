@@ -17,6 +17,8 @@ const categories = [
 const rating = ["4.5", "3.5", "2.5", "1.5", "0.5"];
 
 const Filters = () => {
+  const { applyFilters, resetFilters, priceRange } =
+    useContext(ProductsContext);
   const [checkedCategories, setCheckedCategories] = useState(
     Array(categories.length).fill(false)
   );
@@ -24,8 +26,12 @@ const Filters = () => {
   const [selectedRating, setSelectedRating] = useState(0);
   const [minPriceValue, setMinPriceValue] = useState("");
   const [maxPriceValue, setMaxPriceValue] = useState("");
-  const [selectedPrice, setSelectedPrice] = useState({});
-  const { applyFilters, resetFilters } = useContext(ProductsContext);
+  const [selectedPrice, setSelectedPrice] = useState({
+    minPrice: priceRange.minPrice,
+    maxPrice: priceRange.maxPrice,
+  });
+
+  console.log({ selectedPrice });
 
   const onChangeCategoryHandler = (e, position) => {
     const updatedCheckedState = checkedCategories.map((item, index) =>
@@ -46,8 +52,7 @@ const Filters = () => {
   };
 
   const onChangePriceHandler = (e) => {
-    console.log(e.target.value, e.target.id);
-    if (e.target.id === "minPrice" && e.target.value) {
+    if (e.target.id === "minPrice") {
       setMinPriceValue(e.target.value);
       setSelectedPrice({ ...selectedPrice, minPrice: e.target.value });
     }
@@ -57,19 +62,21 @@ const Filters = () => {
     }
   };
 
-  const onApplyHandler = () =>
+  const onApplyHandler = () => {
     applyFilters(selectedCategories, selectedRating, selectedPrice);
+  };
 
   const onResetHandler = () => {
     setCheckedCategories(checkedCategories.map(() => false));
     resetFilters();
     setSelectedRating(0);
-    setSelectedPrice({});
+    setSelectedPrice({
+      minPrice: priceRange.minPrice,
+      maxPrice: priceRange.maxPrice,
+    });
     setMinPriceValue("");
     setMaxPriceValue("");
   };
-
-  console.log({ selectedCategories });
 
   return (
     <aside className="filters">

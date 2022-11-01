@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { ProductsContext } from "../../contexts/products-context";
 
 const PriceFilter = (props) => {

@@ -46,8 +46,6 @@ const sortProducts = (value, products) => {
 
 export const ProductsContext = createContext({
   products: [],
-  minPrice: 0,
-  maxPrice: 0,
   filteredProducts: [],
   priceRange: {},
   applyFilters: () => {},
@@ -59,8 +57,6 @@ export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [priceRange, setPriceRange] = useState({});
-
-  console.log({ filteredProducts });
 
   useEffect(() => {
     const getData = async () => {
