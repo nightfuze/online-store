@@ -29,14 +29,18 @@ const sortProducts = (value, products) => {
   console.log({ value });
   return [
     ...products.sort((a, b) => {
-      const { id, price } = a;
-      const { price: priceB, id: idB } = b;
+      const { id, price, title } = a;
+      const { id: idB, price: priceB, title: titleB } = b;
 
       switch (value) {
         case "priceDesc":
           return priceB - price;
         case "priceAsc":
           return price - priceB;
+        case "titleAsc":
+          return title.localeCompare(titleB);
+        case "titleDesc":
+          return titleB.localeCompare(title);
         default:
           return id - idB;
       }

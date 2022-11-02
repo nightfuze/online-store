@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ProductsContext } from "../../contexts/products-context";
 
 import "./sort-tool.scss";
@@ -24,6 +24,12 @@ const SortTool = () => {
         </option>
         <option className="sort-option" value="priceAsc">
           Price Low
+        </option>
+        <option className="sort-option" value="titleAsc">
+          Title Asc
+        </option>
+        <option className="sort-option" value="titleDesc">
+          Title Desc
         </option>
       </select>
     </div>
