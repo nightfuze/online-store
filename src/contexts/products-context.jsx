@@ -29,8 +29,18 @@ const sortProducts = (value, products) => {
   console.log({ value });
   return [
     ...products.sort((a, b) => {
-      const { id, price, title } = a;
-      const { id: idB, price: priceB, title: titleB } = b;
+      const {
+        id,
+        price,
+        title,
+        rating: { rate },
+      } = a;
+      const {
+        id: idB,
+        price: priceB,
+        title: titleB,
+        rating: { rate: rateB },
+      } = b;
 
       switch (value) {
         case "priceDesc":
@@ -41,6 +51,10 @@ const sortProducts = (value, products) => {
           return title.localeCompare(titleB);
         case "titleDesc":
           return titleB.localeCompare(title);
+        case "rateDesc":
+          return rateB - rate;
+        case "rateAsc":
+          return rate - rateB;
         default:
           return id - idB;
       }

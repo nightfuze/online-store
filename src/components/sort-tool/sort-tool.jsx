@@ -31,6 +31,12 @@ const SortTool = () => {
         <option className="sort-option" value="titleDesc">
           Title Desc
         </option>
+        <option className="sort-option" value="rateDesc">
+          Rating High
+        </option>
+        <option className="sort-option" value="rateAsc">
+          Rating Low
+        </option>
       </select>
     </div>
   );
