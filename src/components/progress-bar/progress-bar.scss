@@ -1,0 +1,52 @@
+.progressbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  counter-reset: step;
+  margin: 2rem 0 4rem;
+  &-container {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    background-color: rgb(228, 228, 228);
+    z-index: -1;
+  }
+  &-step {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background-color: rgb(228, 228, 228);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &--active {
+      background-color: orange;
+      color: #fff;
+    }
+    &--completed {
+      background-color: green;
+      color: #fff;
+    }
+    &::before {
+      counter-increment: step;
+      content: counter(step);
+    }
+    &::after {
+      content: attr(data-title);
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      font-size: 0.85rem;
+      color: #666;
+    }
+  }
+}
+
+.progress-step {
+}
