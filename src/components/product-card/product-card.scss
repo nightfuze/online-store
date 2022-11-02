@@ -1,3 +1,4 @@
+@import "../../styles/variables.scss";
 .product-card {
   position: relative;
   border: 1px solid #e4e7ec;
@@ -36,7 +37,7 @@
   }
 
   &-price {
-    color: #038c8c;
+    color: $secondary;
     font-size: 24px;
   }
 
