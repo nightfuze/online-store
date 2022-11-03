@@ -5,12 +5,12 @@ import "./progress-bar.scss";
 const ProgressBar = (props) => {
   const { stepNames, step } = props;
   return (
-    <div class="progressbar-container">
+    <div className="progressbar-container">
       <div className="progressbar">
         {stepNames.map((name, index) => (
           <div
             key={index}
-            class={`progressbar-step ${
+            className={`progressbar-step ${
               step === index + 1
                 ? "progressbar-step--active"
                 : step > index + 1

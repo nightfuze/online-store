@@ -15,7 +15,6 @@ const ProductCard = ({ product }) => {
   );
 
   const onClickHandler = () => {
-    console.log(isItemInCart(product));
     if (buttonText === "Add to cart") {
       addItemToCart(product);
       setButtonText("Remove");

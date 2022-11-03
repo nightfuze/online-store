@@ -26,7 +26,6 @@ const getPriceProducts = (products) => {
 };
 
 const sortProducts = (value, products) => {
-  console.log({ value });
   return [
     ...products.sort((a, b) => {
       const {

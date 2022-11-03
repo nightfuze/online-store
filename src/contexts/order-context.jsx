@@ -22,8 +22,6 @@ export const OrderProvider = ({ children }) => {
     zipCode: "",
   });
 
-  console.log(formData);
-
   const nextStep = () => setStep(step + 1);
   const updateFormData = (newData) => setFormData({ ...formData, ...newData });
   const resetStep = () => setStep(1);

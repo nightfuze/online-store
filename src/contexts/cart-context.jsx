@@ -90,8 +90,6 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  console.log({ cartItems, cartTotal, cartCount });
-
   const value = {
     cartItems,
     addItemToCart,

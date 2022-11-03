@@ -31,8 +31,6 @@ const Filters = () => {
     maxPrice: priceRange.maxPrice,
   });
 
-  console.log({ selectedPrice });
-
   const onChangeCategoryHandler = (e, position) => {
     const updatedCheckedState = checkedCategories.map((item, index) =>
       index === position ? !item : item
